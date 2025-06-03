@@ -21,7 +21,12 @@
             "amount": -150.0,
             "description": "sold item",
             "category": "misc"
+        },
+        {
+            "amount": -505.0,
+            "description": "Nintendo switch",
+            "category": "Electronics"
         }
     ],
-    "balance": 1850.0
+    "balance": 1345.0
 }

@@ -1,8 +1,37 @@
 import json  # Allows us to save/load data in JSON format (like a dictionary)
 import os    # Helps check if the file exists
+import matplotlib.pyplot as plt  # For plotting charts
 
 # This is the name of the file where we’ll store the data
 DATA_FILE = "budget_data.json"
+
+
+def show_expense_chart(data):
+    # Filter only expenses (amounts < 0)
+    expenses = [t for t in data["transactions"] if t["amount"] < 0]
+    if not expenses:
+        print("No expenses to show.")
+        return
+
+    # Group expenses by category
+    categories = {}
+    for t in expenses:
+        cat = t.get("category", "Uncategorized")
+        categories[cat] = categories.get(cat, 0) + abs(t["amount"])
+
+    # Prepare data for pie chart
+    labels = categories.keys()
+    values = categories.values()
+
+    # Create pie chart
+    plt.figure(figsize=(6, 6))
+    plt.pie(values, labels=labels, autopct='%1.1f%%', startangle=140)
+    plt.title("Expenses by Category")
+    plt.axis("equal")  # Make the pie chart a circle
+    plt.tight_layout()
+    plt.show()
+
+
 
 # Load previous data from file if it exists
 def load_data():
@@ -54,7 +83,8 @@ def main():
         print("\n1. Add Income")
         print("2. Add Expense")
         print("3. Show Summary")
-        print("4. Exit")
+        print("4. Show Expense Chart")
+        print("5. Exit")
 
         # Get user input
         choice = input("Choose an option: ")
@@ -73,6 +103,9 @@ def main():
         elif choice == "3":
             show_summary(data)
         elif choice == "4":
+            show_expense_chart(data)
+
+        elif choice == "5":
             print("Goodbye!")
             break
         else:
