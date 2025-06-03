@@ -1,0 +1,17 @@
+{
+    "transactions": [
+        {
+            "amount": 2400.0,
+            "description": "Montly Salary"
+        },
+        {
+            "amount": -80.0,
+            "description": "Weekly rent"
+        },
+        {
+            "amount": -220.0,
+            "description": "Food Shop"
+        }
+    ],
+    "balance": 2100.0
+}
