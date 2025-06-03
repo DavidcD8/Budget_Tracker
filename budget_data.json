@@ -11,7 +11,17 @@
         {
             "amount": -220.0,
             "description": "Food Shop"
+        },
+        {
+            "amount": -100.0,
+            "description": "SOLD Item",
+            "category": "Misc"
+        },
+        {
+            "amount": -150.0,
+            "description": "sold item",
+            "category": "misc"
         }
     ],
-    "balance": 2100.0
+    "balance": 1850.0
 }
