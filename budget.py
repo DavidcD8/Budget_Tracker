@@ -1,6 +1,7 @@
 import json  # Allows us to save/load data in JSON format (like a dictionary)
 import os    # Helps check if the file exists
 import matplotlib.pyplot as plt  # For plotting charts
+from datetime import datetime
 
 # This is the name of the file where we’ll store the data
 DATA_FILE = "budget_data.json"
@@ -41,19 +42,29 @@ def load_data():
     # If file doesn’t exist, start with default values
     return {"transactions": [], "balance": 0.0}
 
+
+
 # Save the data back to the file (after each transaction)
 def save_data(data):
     with open(DATA_FILE, "w") as file:
         json.dump(data, file, indent=4)  # Pretty-print the data to file
 
+
 # Add a transaction (income or expense)
-def add_transaction(data, amount, description, category):
+def add_transaction(data, amount, description, category,txn_type):
+     # Ensure amount is positive or negative based on the type
+    if txn_type.lower() == "income":
+        amount = abs(amount)
+    else:
+        amount = -abs(amount)
+
+    date_str = datetime.now().strftime("%Y-%m-%d")
     # Store this transaction in our list
     data["transactions"].append({
         "amount": amount,
         "description": description,
         "category": category,
-
+        "date": date_str,
     })
     # Update the balance
     data["balance"] += amount
@@ -62,13 +73,14 @@ def add_transaction(data, amount, description, category):
     # Print a confirmation
     print(f"Transaction added. New balance: €{data['balance']:.2f}")
 
+
 # Show all transactions and the current balance
 def show_summary(data):
     print("\n--- Transaction History ---")
-    print("Amount    | Description     | Category")
+    print("Date       | Amount    | Description     | Category")
     for t in data["transactions"]:
         sign = "+" if t["amount"] > 0 else "-"
-        print(f"{sign}€{abs(t['amount']):7.2f} | {t['description']:<15} | {t.get('category', 'N/A'):<10}")
+        print(f"{t['date']} | {sign}€{abs(t['amount']):7.2f} | {t['description']:<15} | {t.get('category', 'N/A'):<10}")
 
     print(f"\nCurrent balance: €{data['balance']:.2f}\n")
 
@@ -93,13 +105,13 @@ def main():
         if choice == "1":
             amount = float(input("Enter income amount: "))
             desc = input("Description: ")
-            cat = input("Category: eg: food, salary, bills: ")
-            add_transaction(data, -amount, desc, cat)  # Pass category
+            cat = input("Category (e.g., salary, freelance): ")
+            add_transaction(data, amount, desc, cat, "income")
         elif choice == "2":
             amount = float(input("Enter expense amount: "))
             desc = input("Description: ")
             cat = input("Category: eg: food, salary, bills: ")
-            add_transaction(data, -amount, desc, cat)  # Expenses are stored as negative numbers
+            add_transaction(data, amount, desc, cat, "expense")
         elif choice == "3":
             show_summary(data)
         elif choice == "4":

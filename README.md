@@ -32,6 +32,13 @@ This CLI tool offers a **minimalist solution** for:
 
 ---
 
+## Bug Fix: Handling Missing Dates and Display of Negative Balances
+- **Balance Display:** Fixed display so income and expenses correctly show positive and negative signs.
+
+
+
+
+---
 ## 🚀 Getting Started
 
 1. **Clone the repository:**

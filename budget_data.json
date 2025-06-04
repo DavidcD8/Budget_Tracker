@@ -1,32 +1,11 @@
 {
     "transactions": [
         {
-            "amount": 2400.0,
-            "description": "Montly Salary"
-        },
-        {
-            "amount": -80.0,
-            "description": "Weekly rent"
-        },
-        {
-            "amount": -220.0,
-            "description": "Food Shop"
-        },
-        {
-            "amount": -100.0,
-            "description": "SOLD Item",
-            "category": "Misc"
-        },
-        {
-            "amount": -150.0,
-            "description": "sold item",
-            "category": "misc"
-        },
-        {
-            "amount": -505.0,
-            "description": "Nintendo switch",
-            "category": "Electronics"
+            "amount": 2500.0,
+            "description": "salary",
+            "category": "salary",
+            "date": "2025-06-04"
         }
     ],
-    "balance": 1345.0
+    "balance": 2500.0
 }
