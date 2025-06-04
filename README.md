@@ -10,7 +10,7 @@ A simple **command-line budget tracker** built with Python. It helps you record 
 - 📜 View all past transactions with descriptions  
 - 💰 Automatically updates and displays your current balance  
 - 💾 Persists data across runs using a `.json` file  
-
+- 📖 Matplotlib For charts.
 ---
 
 ## 🛠️ Tech Stack
