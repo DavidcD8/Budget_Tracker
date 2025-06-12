@@ -74,6 +74,42 @@ def add_transaction(data, amount, description, category,txn_type):
     print(f"Transaction added. New balance: €{data['balance']:.2f}")
 
 
+
+
+# This function lets the user delete a transaction from the list
+def delete_transaction(data):
+    if not data["transactions"]:    # If there are no transactions, show a message and return early
+        print("No transactions to delete.")
+        return
+    
+    print("\n--- Delete a Transaction ---")
+    
+    for i, t in enumerate(data["transactions"], start=1):  # i = 1, 2, 3...
+        print(f"{i}. €{t['amount']:.2f} | {t['description']} | {t['category']}")
+
+     # Ask the user to choose which number to delete
+    try:
+        choice = int(input("Enter the number of the transaction to delete: "))
+
+        # Convert to 0-based index and check bounds
+        if 1 <= choice <= len(data["transactions"]):
+            removed = data["transactions"].pop(choice - 1)  # Delete from the list   
+
+        # Adjust the balance based on what was removed
+            data["balance"] -= removed["amount"]
+            print(f"Deleted: €{removed['amount']:.2f} | {removed['description']}")
+
+            save_data(data)  # Save changes to file
+
+        else:
+            print("Invalid number. Please try again.")
+
+    except ValueError:
+        print("Please enter a valid number.")
+
+
+
+
 # Show all transactions and the current balance
 def show_summary(data):
     print("\n--- Transaction History ---")
@@ -83,6 +119,9 @@ def show_summary(data):
         print(f"{t['date']} | {sign}€{abs(t['amount']):7.2f} | {t['description']:<15} | {t.get('category', 'N/A'):<10}")
 
     print(f"\nCurrent balance: €{data['balance']:.2f}\n")
+
+
+
 
 # The main program loop (user interface)
 def main():
@@ -94,9 +133,10 @@ def main():
         # Display the main menu
         print("\n1. Add Income")
         print("2. Add Expense")
-        print("3. Show Summary")
-        print("4. Show Expense Chart")
-        print("5. Exit")
+        print("3. Delete Transaction")
+        print("4. Show Summary")
+        print("5. Show Expense Chart")
+        print("6. Exit")
 
         # Get user input
         choice = input("Choose an option: ")
@@ -113,15 +153,21 @@ def main():
             cat = input("Category: eg: food, salary, bills: ")
             add_transaction(data, amount, desc, cat, "expense")
         elif choice == "3":
-            show_summary(data)
+            delete_transaction(data)
         elif choice == "4":
+            show_summary(data)
+        elif choice == "5":
             show_expense_chart(data)
 
-        elif choice == "5":
+        elif choice == "6":
             print("Goodbye!")
             break
         else:
             print("Invalid choice. Try again.")
+
+
+
+
 
 # This tells Python to run main() only if the script is run directly
 if __name__ == "__main__":
